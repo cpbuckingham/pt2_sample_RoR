@@ -9,6 +9,8 @@
 <body>
   <% if current_user %>
     Signed in as <%= current_user.name %> | <%= link_to "Logout", '/logout' %>
+    <br>
+    <%= link_to '+  New Coder', new_user_coder_path(current_user) %>
   <% else %>
     <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
   <% end %>

@@ -1,0 +1,6 @@
+<%= form_for([@user,@coder]) do |f| %>
+<%= f.text_field :name, placeholder:"name" %>
+<%= f.text_field :email, placeholder:"email" %>
+<%= f.text_field :github_username, placeholder:"Githun Username" %>
+<%= f.submit "Submit" %>
+<% end %>
