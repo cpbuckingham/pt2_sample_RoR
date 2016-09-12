@@ -1,5 +1,5 @@
 class CodersController < ApplicationController
-  before_action :set_coder, only: [:show, :edit, :destroy]
+  before_action :set_coder, only: [ :show, :edit, :destroy]
 
   def show
   end
@@ -29,7 +29,7 @@ class CodersController < ApplicationController
     end
   end
 
-  def edit
+  def update
     @user = find_user
     respond_to do |format|
       if @coder.update(coder_params)
