@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root to: 'home#show'
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
@@ -10,6 +11,9 @@ Rails.application.routes.draw do
   resources :users do
   resources :coders
   end
+
+  get '/admin' => 'admin#show'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,12 +1,16 @@
 class CodersController < ApplicationController
-  before_action :set_coder, only: [:update, :destroy]
+  before_action :set_coder, only: [:show, :edit, :destroy]
+
   def show
-    @user = find_user
+  end
+
+  def edit
   end
 
   def index
     # @coder = Coder.new
     @coder = Coder.all
+    @user = User.where(:user_id => session[:id])
   end
   def new
     @user = find_user
@@ -25,10 +29,11 @@ class CodersController < ApplicationController
     end
   end
 
-  def update
+  def edit
+    @user = find_user
     respond_to do |format|
       if @coder.update(coder_params)
-        format.html { redirect_to coder_path, notice: 'Coder was successfully updated.' }
+        format.html { redirect_to user_coders_path(@user), notice: 'Coder was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -38,7 +43,7 @@ class CodersController < ApplicationController
   def destroy
     @coder.destroy
     respond_to do |format|
-      format.html { redirect_to admin_path, notice: 'Coder was successfully destroyed.' }
+      format.html { redirect_to user_coders_path, notice: 'Coder was successfully destroyed.' }
     end
   end
 

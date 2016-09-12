@@ -16,7 +16,7 @@
        <td><%= coder.github_username %></td>
        <td><%= link_to 'Show', user_coder_path(current_user.id, coder) %><br>
            <%= link_to 'Edit', edit_user_coder_path(current_user.id, coder) %><br>
-
+           <%= link_to 'Delete', user_coder_path(current_user.id, coder), :method => :delete %><br>
      </tr>
    <% end %>
  </tbody>
