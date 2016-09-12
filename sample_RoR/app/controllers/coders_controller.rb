@@ -9,8 +9,8 @@ class CodersController < ApplicationController
 
   def index
     # @coder = Coder.new
-    @coder = Coder.all
-    @user = User.where(:user_id => session[:id])
+    @coder = Coder.where(:id => session[:user_id])
+    @user = User.where(:user_id => session[:user_id])
   end
   def new
     @user = find_user
