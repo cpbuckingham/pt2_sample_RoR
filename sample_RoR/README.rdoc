@@ -1,8 +1,8 @@
-#Do
+Do
 
-###Edit coder button
-###Show only coders that user created
-###admin layer bug
+Edit coder functionality
+Show only coders that user created
+admin layer bug - error occurs when email doesn't exist
 
-#####Testing
-#####Refactor
+Testing
+Refactor
