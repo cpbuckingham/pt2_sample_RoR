@@ -1,8 +1,8 @@
 Do
 
-Edit coder functionality
-Show only coders that user created
-admin layer bug - error occurs when email doesn't exist
+Prevent users from seeing each other's coders
+Use a gem like devise for easy user authentication
+Add error handling and validations
 
 Testing
 Refactor
