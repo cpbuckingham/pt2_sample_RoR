@@ -17,7 +17,13 @@
   <% else %>
     <%= link_to 'Login', '/login' %> | <%= link_to 'Signup', '/signup' %>
   <% end %>
-<%= yield %>
 
-</body>
+  <div>
+    <%= flash[:notice] %>
+    <%= flash[:error] %>
+  </div>
+
+  <%= yield %>
+
+  </body>
 </html>

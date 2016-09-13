@@ -9,10 +9,10 @@ class UsersController < ApplicationController
       UserMailer.welcome_email(user).deliver
       session[:user_id] = user.id
       redirect_to '/'
-  else
-    redirect_to '/signup'
+    else
+      redirect_to '/signup'
+    end
   end
-end
 
 private
 
