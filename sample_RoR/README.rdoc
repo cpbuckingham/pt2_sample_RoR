@@ -1,8 +1,0 @@
-Do
-
-Prevent users from seeing each other's coders
-Use a gem like devise for easy user authentication
-Add error handling and validations
-
-Testing
-Refactor
