@@ -1,5 +1,6 @@
 class CodersController < ApplicationController
-  before_action :set_coder, only: [ :show, :edit, :destroy]
+  before_action :coder, only: [:show, :edit, :destroy]
+  before_action :user
 
   def show
   end
@@ -8,54 +9,51 @@ class CodersController < ApplicationController
   end
 
   def index
-    @coder = Coder.all
-    # @coder = Coder.where(:id => session[:user_id])
+    @coders = user.coders
   end
 
   def new
-    @user = find_user
+    #@user = user
     @coder = Coder.new
   end
 
   def create
-    @coder = Coder.new(coder_params)
-    @user = find_user
-    respond_to do |format|
-      if @coder.save
-        format.html { redirect_to user_coders_path(@user), notice: 'Coder was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if user.coders.new(coder_params).save!
+      flash[:notice] = 'Coder was successfully created.'
+      redirect_to user_coders_path(user)
+    else
+      flash[:error] = 'Something has gone wrong.'
+      render :new
     end
   end
 
   def update
-    @user = find_user
-    respond_to do |format|
-      if @coder.update(coder_params)
-        format.html { redirect_to user_coders_path(@user), notice: 'Coder was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if coder.update(coder_params)
+      flash[:notice] = 'Coder was successfully updated.'
+      redirect_to user_coders_path(user)
+    else
+      flash[:notice] = 'Something has gone wrong.'
+      render :edit
     end
   end
 
   def destroy
-    @coder.destroy
-    respond_to do |format|
-      format.html { redirect_to user_coders_path, notice: 'Coder was successfully destroyed.' }
+    if coder.destroy
+      redirect_to user_coders_path, notice: 'Coder was successfully destroyed.'
     end
   end
 
   private
-    def set_coder
-      @coder = Coder.find(params[:id])
-    end
-    def find_user
-      User.find(params[:user_id])
-      end
 
-    def coder_params
-      params.require(:coder).permit(:name, :email, :github_username)
-    end
+  def coder
+    @coder = Coder.find(params[:id])
+  end
+
+  def user
+    @user = User.find(params[:user_id])
+  end
+
+  def coder_params
+    params.require(:coder).permit(:name, :email, :github_username)
+  end
 end
