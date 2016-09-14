@@ -6,11 +6,12 @@ rails g model coder name:string email:string github_username:string
 
 resources :users do
 resources :coders
-validates :email, presence: true
 end
 
 belongs_to :user
 has_many :coders
+validates :email, presence: true
+
 
 rails g controller coders new show edit index create update destroy
 mysql.server start
@@ -63,14 +64,6 @@ class CodersController < ApplicationController
 
   private
 
-  def coder
-    @coder = Coder.find(params[:id])
-  end
-
-  def user
-    @user = User.find(params[:user_id])
-  end
-
   def coder_params
     params.require(:coder).permit(:name, :email, :github_username)
   end
@@ -100,7 +93,14 @@ before_action :user
 
 pt.3 - CRUD FOR CODERS
 
-#coder>new&edit
+#coder>new
+<%= form_for([@user, @coder]) do |f| %>
+  <%= f.text_field :name, placeholder: "name" %>
+  <%= f.text_field :email, placeholder: "email" %>
+  <%= f.text_field :github_username, placeholder: "Github Username" %>
+  <%= f.submit "Submit" %>
+<% end %>
+#coder>edit
 <%= form_for([@user, @coder]) do |f| %>
   <%= f.text_field :name, value: @coder.name %>
   <%= f.text_field :email, value: @coder.email %>
@@ -143,6 +143,9 @@ pt.4 - RELATIONSHIPS WITH CODERS
 
 rails g migration associate_coders_with_users
 add_reference :coders, :user, index: true
+bundle exec rake db:migrate
+rails s
+
 @coders = user.coders
 bundle exec rake db:migrate
 select * from coders;
@@ -151,6 +154,7 @@ pt.4 - ADMIN
 
 rails g controller admin show
 @users = User.all
+get '/admin' => 'admin#show'
 bundle exec rake routes
 rails g migration add_admin_to_user
 add_column :users, :admin, :boolean, default: false
@@ -179,8 +183,8 @@ bundle exec rake db:migrate
 
 pt.6 - SEEDING
 
-bundle exec rake db:migrate
 User.create!(name: "cam", email: "cameron.p.buckingham@gmail.com", password: "cam", admin: true)
+bundle exec rake db:seed
 #sessions>controller
 if user.admin
   redirect_to '/admin'
